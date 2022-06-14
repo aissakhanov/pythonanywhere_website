@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% block content %}
+<!-- Main -->
+<div id="main">
+	<div class="inner">
+		<header>
+			<h1>Numerical methods</h1>
+			<p>Used when analytical methods are not applicable [which is pretty often]</p>
+		</header>
+		<section class="tiles">
+			<article class="style1">
+				<span class="image">
+					<img src="../../static/images/pic01.jpg" alt="" />
+				</span>
+				<a href="{% url 'root_finding' %}">
+					<h2>Root finding</h2>
+					<div class="content">
+						<p>Here you can find some techniques used when it is impossible to solve analytically f(x) = 0</p>
+					</div>
+				</a>
+			</article>
+			<article class="style2">
+				<span class="image">
+					<img src="../../static/images/pic02.jpg" alt="" />
+				</span>
+				<a href="#">
+					<h2>Numerical integration</h2>
+					<div class="content">
+						<p>Here you can find some techniques used when it is impossible to directly evaluate integrals &#x222b;f(x)dx </p>
+					</div>
+				</a>
+			</article>
+			<article class="style3">
+				<span class="image">
+					<img src="../../static/images/pic03.jpg" alt="" />
+				</span>
+				<a href="#">
+					<h2>Interpolation</h2>
+					<div class="content">
+						<p>11</p>
+					</div>
+				</a>
+			</article>
+		</section>
+	</div>
+</div>
+{% endblock content %}

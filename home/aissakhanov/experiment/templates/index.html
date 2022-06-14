@@ -1,0 +1,76 @@
+{% extends 'main.html' %}
+{% block content %}
+<!-- Main -->
+<div id="main">
+	<div class="inner">
+		<header>
+			<h1>A place to learn</h1>
+			<p>I believe that explaining a concept is one of the best ways to understand it deeper</p>
+		</header>
+		<title>Home</title>
+		<section class="tiles">
+
+			<article class="style1">
+				<span class="image">
+					<img src="../../static/images/pic01.jpg" alt="" />
+				</span>
+				<a href="{% url 'lin_reg' %}">
+					<h2>APP: Linear Regression</h2>
+					<div class="content">
+						<p>Interactive example about Linear Regression Algorithm</p>
+					</div>
+				</a>
+			</article>
+
+			<article class="style2">
+				<span class="image">
+					<img src="../../static/images/pic02.jpg" alt="" />
+				</span>
+				<a href="#">
+					<h2>[COMING SOON] APP: Logistic Regression</h2>
+					<div class="content">
+						<p></p>
+					</div>
+				</a>
+			</article>
+
+			<!--<article class="style1">-->
+			<!--	<span class="image">-->
+			<!--		<img src="../../static/images/pic01.jpg" alt="" />-->
+			<!--	</span>-->
+			<!--	<a href="{% url 'ml_algorithms' %}">-->
+			<!--		<h2>ML algorithms</h2>-->
+			<!--		<div class="content">-->
+			<!--			<p>Lighting up "ML algorithms" blackbox through interactive demos</p>-->
+			<!--		</div>-->
+			<!--	</a>-->
+			<!--</article>-->
+
+			<!--<article class="style2">-->
+			<!--	<span class="image">-->
+			<!--		<img src="../../static/images/pic02.jpg" alt="" />-->
+			<!--	</span>-->
+			<!--	<a href="#">-->
+			<!--		<h2>[COMING SOON] Differential equations</h2>-->
+			<!--		<div class="content">-->
+			<!--			<p>They can model changing behavior, which is everywhere! Here you can find differential equations which model our reality</p>-->
+			<!--		</div>-->
+			<!--	</a>-->
+			<!--</article>-->
+
+			<!--<article class="style3">-->
+			<!--	<span class="image">-->
+			<!--		<img src="../../static/images/pic03.jpg" alt="" />-->
+			<!--	</span>-->
+			<!--	<a href="#">-->
+                <!--<a href="{% url 'num_methods' %}">-->
+			<!--		<h2>[COMING SOON] Numerical methods</h2>-->
+			<!--		<div class="content">-->
+			<!--			<p>Used when analytical methods are not applicable [which is pretty often]</p>-->
+			<!--		</div>-->
+			<!--	</a>-->
+			<!--</article>-->
+		</section>
+	</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,192 @@
+<style>
+    .dot {
+        top: 20px;
+        left: 20px;
+        height: 25px;
+        width: 25px;
+        background-color: red;
+        border-radius: 50%;
+        position: absolute;
+    }
+    * {
+      box-sizing: border-box;
+    }
+
+/* Create two unequal columns that floats next to each other */
+    .column {
+      float: left;
+      padding: 10px;
+    }
+
+    .left {
+      width: 70%;
+    }
+
+    .right {
+      width: 30%;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+    td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+    tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<head>
+    <title>Linear Regression Interactive DEMO</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <div class="row">
+        <div class="column left">
+            <svg id="MAIN" height="100%" width="100%" position="absolute" onclick="createPoint(event)">
+                <line id="xaxis" x1="50" y1="500" x2="1000" y2="500" style="position: absolute;stroke:blue;stroke-width:2" />
+                <line id="yaxis" x1="50" y1="500" x2="50" y2="50" style="stroke:blue;stroke-width:2" />
+                <circle id="origin" cx="50" cy="500" r="20" style="stroke:black;stroke-width:2" />
+            </svg>
+        </div>
+        <div class="column right">
+            <h2>Intructions</h2>
+            Make 2 points
+            <h2>Regression line parameters</h2>
+            <table>
+                <tr>
+                    <th>Slope</th>
+                    <th>Intercept</th>
+                    <th>Equation</th>
+                </tr>
+                <tr>
+                    <td id="slope"></td>
+                    <td id="intercept"></td>
+                    <td id="equation"></td>
+                </tr>
+            </table>
+            <h2>Data points</h2>
+            <div  style = "max-height: 50%; overflow-y:auto;">
+                <table id="data">
+                    <!--<div style="position: fixed">-->
+                        <tr>
+                            <th>X</th>
+                            <th>Y</th>
+                        </tr>
+                    <!--</div>-->
+                </table>
+            </div>
+            <h2>Additional references</h2>
+            <ul>
+                <li><a target="_blank" href="https://www.statisticshowto.com/probability-and-statistics/regression-analysis/find-a-linear-regression-equation/#:~:text=The%20Linear%20Regression%20Equation&text=The%20equation%20has%20the%20form,a%20is%20the%20y%2Dintercept.">StatisticsHowTo</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+<script>
+    points = 0;
+    function createPoint(event) {
+        var x1 = event.pageX;
+        var x2 = event.pageY;
+        var newDot = document.createElement("div");
+        points = points+1;
+        newDot.setAttribute('class', 'dot');
+        newDot.style.top = String(x2)+"px";
+        newDot.style.left = String(x1)+"px";
+        document.body.appendChild(newDot);
+        if (points>=2){
+            createLine(x1,x2);
+        }
+        addData(x1,x2);
+    }
+
+    function addData(x1,x2){
+        document.getElementById("data").innerHTML += "<tr> <td>"+String(x1)+"</td> <td>"+String(x2)+"</td> </tr>";
+    }
+    function sum(arr) {
+        var temp = 0;
+        for (let i=0; i<arr.length; i++){
+            temp = temp + arr[i];
+        }
+        return temp
+    }
+
+    function dotMultiply(arr1, arr2){
+        var temp_arr = [];
+        for (let i=0; i<arr1.length; i++){
+            temp = arr1[i]*arr2[i];
+            temp_arr.push(temp);
+        }
+        return temp_arr;
+    }
+
+    function createLine() {
+        var dots = document.getElementsByClassName("dot")
+        var xvals = [];
+        var yvals = [];
+        for (let i=0; i<dots.length; i++){
+          xtemp = parseInt(dots[i].style.left.slice(0,-2));
+          ytemp = parseInt(dots[i].style.top.slice(0,-2));
+          xvals.push(xtemp);
+          yvals.push(ytemp);
+        }
+        console.log(dots)
+        xave = sum(xvals)/xvals.length;
+        yave = sum(yvals)/yvals.length;
+
+        A1 = sum(yvals)*sum(dotMultiply(xvals, xvals)) - sum(xvals)*sum(dotMultiply(xvals, yvals))
+        A2 = xvals.length*sum(dotMultiply(xvals, xvals)) - sum(xvals)*sum(xvals);
+        A = A1/A2;
+
+        B1 = xvals.length*sum(dotMultiply(xvals, yvals)) - sum(xvals)*sum(yvals);
+        B2 = xvals.length*sum(dotMultiply(xvals, xvals)) - sum(xvals)*sum(xvals);
+        B = B1/B2;
+        B = B;
+
+        x1 = Math.min(...xvals);
+        x2 = Math.max(...xvals);
+        y1 = A+B*x1;
+        y2 = A+B*x2;
+        x1p = 0;
+        y1p = A+B*x1p;
+        x2p = 4000;
+        y2p = A+B*x2p;
+        y_orig = document.getElementById("origin").getAttribute("cy");
+        x_orig = document.getElementById("origin").getAttribute("cx");
+        if (document.getElementById("RegLine") == null){
+            document.getElementById("MAIN").innerHTML += "<line id=\"RegLine\" x1=\"0\" y1=\"0\" x2=\"200\" y2=\"200\" style=\"stroke:green;stroke-width:2;\" />";
+            document.getElementById("MAIN").innerHTML += "<line id=\"RegLinePred\" x1=\"0\" y1=\"0\" x2=\"200\" y2=\"200\" style=\"stroke:green;stroke-width:2;\" stroke-dasharray=\"4 4\" />";
+
+        }
+        document.getElementById("RegLine").setAttribute("x1", String(x1));
+        document.getElementById("RegLine").setAttribute("x2", String(x2));
+        document.getElementById("RegLine").setAttribute("y1", String(y1));
+        document.getElementById("RegLine").setAttribute("y2", String(y2));
+
+        document.getElementById("RegLinePred").setAttribute("x1", String(x1p));
+        document.getElementById("RegLinePred").setAttribute("x2", String(x2p));
+        document.getElementById("RegLinePred").setAttribute("y1", String(y1p));
+        document.getElementById("RegLinePred").setAttribute("y2", String(y2p));
+
+        document.getElementById("origin").setAttribute("cx", String((y_orig-A)/B)); //intercept
+        slope = Math.round(-1*B*100)/100;
+        intercept = Math.round(A*100)/100;
+        document.getElementById("slope").innerHTML = String(slope);
+        document.getElementById("intercept").innerHTML = String(intercept);
+        document.getElementById("equation").innerHTML = "Y = "+String(intercept)+"+"+String(slope)+"*X";
+    }
+</script>

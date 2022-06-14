@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% block content %}
+<!-- Main -->
+<div id="main">
+	<div class="inner">
+		<header>
+			<h1>ML algorithms | Supervised learning</h1>
+			<p>Below you can find different supervised ML algorithms</p>
+		</header>
+		<section class="tiles">
+			<article class="style1">
+				<span class="image">
+					<img src="../../static/images/pic01.jpg" alt="" />
+				</span>
+    				<a href="{% url 'lin_reg' %}">
+					<h2>Linear regression</h2>
+					<div class="content">
+						<p>When relationship between Y and {X1, X2, ..., Xn} is linear</p>
+					</div>
+				</a>
+
+			</article>
+			<article class="style2">
+				<span class="image">
+					<img src="../../static/images/pic02.jpg" alt="" />
+				</span>
+    				<a href="#">
+					<h2>[COMING SOON] 2nd model</h2>
+					<div class="content">
+						<p>#</p>
+					</div>
+				</a>
+
+			</article>
+
+		</section>
+	</div>
+</div>
+{% endblock content %}

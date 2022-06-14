@@ -1,0 +1,48 @@
+{% extends 'main.html' %}
+{% block content %}
+<!-- Main -->
+<div id="main">
+	<div class="inner">
+		<header>
+			<h1>ML algorithms</h1>
+			<p>Below you can find categories of algorithms</p>
+		</header>
+		<section class="tiles">
+			<article class="style1">
+				<span class="image">
+					<img src="../../static/images/pic01.jpg" alt="" />
+				</span>
+				<a href="{% url 'supervised_learning' %}">
+					<h2>Supervised learning</h2>
+					<div class="content">
+						<p>Learn on labeled examples and understand unseen ones</p>
+					</div>
+				</a>
+
+			</article>
+			<article class="style2">
+				<span class="image">
+					<img src="../../static/images/pic02.jpg" alt="" />
+				</span>
+				<a href="#">
+					<h2>[COMING SOON] Unsupervised learning</h2>
+					<div class="content">
+						<p>Understand unlabeled data</p>
+					</div>
+				</a>
+			</article>
+			<article class="style3">
+				<span class="image">
+					<img src="../../static/images/pic03.jpg" alt="" />
+				</span>
+				<a href="#">
+					<h2>[COMING SOON] Reinforcement learning</h2>
+					<div class="content">
+						<p>Learn through rewards</p>
+					</div>
+				</a>
+			</article>
+		</section>
+	</div>
+</div>
+{% endblock content %}

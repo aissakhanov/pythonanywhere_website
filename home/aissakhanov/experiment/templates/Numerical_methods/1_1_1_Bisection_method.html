@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+{% block content %}
+<!-- Main -->
+<div id="main">
+	<div class="inner">
+		<header>
+			<h1>Bisection method</h1>
+		</header>
+		<article>
+			<div class="tab">
+                <!--<button class="tablinks" onclick="openCity(event, 'Application')" id="defaultOpen">Application</button>-->
+                <button class="tablinks" onclick="openCity(event, 'History')" id="defaultOpen">History</button>
+                <button class="tablinks" onclick="openCity(event, 'Assumptions')">Assumptions</button>
+                <button class="tablinks" onclick="openCity(event, 'Detailed explanation')">Detailed explanation</button>
+                <button class="tablinks" onclick="openCity(event, 'Video')">Video</button>
+                <button class="tablinks" onclick="openCity(event, 'Link')">Code links and references</button>
+			</div>
+			<!-- Tab content -->
+			<!--<div id="Application" class="tabcontent">-->
+			<!--   <p>Examples</p>-->
+			<!--</div>-->
+
+			<div id="History" class="tabcontent">
+			  <p>History is interesting!!</p>
+			</div>
+
+			<div id="Assumptions" class="tabcontent">
+			  <p>Required assumptions</p>
+			</div>
+
+			<div id="Detailed explanation" class="tabcontent">
+			  <p>Demystification!!!</p>
+			</div>
+
+			<div id="Video" class="tabcontent">
+			  <p><iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe></p>
+			</div>
+
+			<div id="Link" class="tabcontent">
+			  <p>Code links and references</p>
+			</div>
+		</article>
+	</div>
+</div>
+{% endblock content %}
