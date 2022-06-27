@@ -14,7 +14,6 @@ def num_methods(request):
 	context = {}
 	return render(request, 'Numerical_methods/0_Num_methods.html', context)
 
-
 def supervised_learning(request):
     context = {}
     return render(request, 'ML_algorithms/1_Supervised_learning.html', context)
