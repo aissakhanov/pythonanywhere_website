@@ -33,10 +33,12 @@
 	</div>
 
 	<div id="Demo" class="tabcontent">
-	  <div id="myPlot"></div>
+
+      <div id="myPlot"></div>
+      <div id="myDiv"></div>	  
+    
     <div id="table_val"></div>
 	  <div id="parameters"></div>
-    
 	</div>
 
 	<div id="Links" class="tabcontent">
@@ -62,7 +64,7 @@ var traces = [{
   y: [10, 15],
   mode: 'markers',
   type: 'scatter',
-  name: 'initial data'
+  name: 'initial data',
 }];
 // regression line
 traces.push({
@@ -237,8 +239,12 @@ var table_par = [{
     align: "center",
     line: {color: "black", width: 1},
     font: {family: "Arial", size: 11, color: ["black"]}
-  }
+  },
+    xaxis: 'x',
+    yaxis: 'y',
+    domain: {x: [0,0.45], y: [0,1]}
 }]
+
 Plotly.newPlot('parameters', table_par);
 
 var table_val = [{
@@ -255,9 +261,19 @@ var table_val = [{
     align: "center",
     line: {color: "black", width: 1},
     font: {family: "Arial", size: 11, color: ["black"]}
-  }
+  },
+    xaxis: 'x',
+    yaxis: 'y',
+    domain: {x: [0.55,1], y: [0,1]}
 }]
 Plotly.newPlot('table_val', table_val)
+
+var data = [table_val[0],table_par[0]]
+// var layout = {
+//   grid: {rows: 1, columns: 2, pattern: 'independent'},
+// };
+
+Plotly.newPlot('myDiv', data);
 
 // PURE PLOTLY JS solution, but coordinates are slightly off
 // Plotly.plot('myPlot', [{
