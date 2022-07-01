@@ -1,43 +1,50 @@
-{% extends 'main.html' %}
-{% block content %}
+{% load static %}
+<link rel="stylesheet" href="../../static/css/main.css" />
+<link rel="stylesheet" href="../../static/css/tabs.css" />
+<noscript><link rel="stylesheet" href="../../static/css/noscript.css" /></noscript>
+
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="//d3js.org/d3.v5.min.js"></script>
-<div id="main">
-	<div class="inner">
-		<header>
-			<h1>Linear Regression</h1>
-    </header>
-      <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'About')" id="defaultOpen">About</button>
-            <button class="tablinks" onclick="openCity(event, 'Demo')">Interactive demo</button>
-            <button class="tablinks" onclick="openCity(event, 'Links')">Additional links</button>
+
+<head>
+    <title>Linear Regression Interactive DEMO</title>
+    <!-- <meta name='viewport' content='width=device-width, initial-scale=1'> -->
+</head>
+
+<body>
+	<div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'About')" id="defaultOpen">About</button>
+        <!-- <button class="tablinks" onclick="openCity(event, 'Mathematics')">Mathematics</button> -->
+        <!-- <button class="tablinks" onclick="openCity(event, 'From_scratch')">Develop from scratch</button> -->
+        <button class="tablinks" onclick="openCity(event, 'Demo')">Interactive demo</button>
+        <button class="tablinks" onclick="openCity(event, 'Links')">Additional links</button>
+	</div>
+
+	<div id="About" class="tabcontent">
+         <p>High-level info: what is it, history, whete it is used, etc.</p>
+	</div>
+
+	<div id="Demo" class="tabcontent">
+    <div id="myPlot" style="width: 100%"></div>
+    <div class="row">
+
+      <div class="column">
+        <div id="parameters"></div>
       </div>
 
-      <div id="About" class="tabcontent">
-            <p>High-level info: what is it, history, whete it is used, etc.</p>
+      <div class="column">
+        <div id="values"></div>
       </div>
 
-      <div id="Demo" class="tabcontent">
-        <center>
-        <div id="myPlot"></div>
-        <div class="row">
-          <div class="column">
-            <div id="parameters"></div>
-          </div>
-          <div class="column" >
-            <div id="values" ></div>
-          </div>
-        </div>
-      </center>
-      </div>
-      
-      <div id="Links" class="tabcontent">
-        <p>Code links and references</p>
-      </div>
-
-
+    </div>
   </div>
-</div>
+
+	<div id="Links" class="tabcontent">
+	  <p>Code links and references</p>
+	</div>
+
+
+</body>
 
 <script>
 var width_1 = window.innerWidth
@@ -144,9 +151,9 @@ var table_par = [{
   },
     xaxis: 'x',
     yaxis: 'y',
+    // domain: {x: [0,0.45], y: [0,1]},
 }]
-Plotly.newPlot('parameters', table_par, {title: 'Regression line parameters',
-margin:{l:0, r:10, b:0},height: 200, width: 400}, {displayModeBar: false});
+Plotly.newPlot('parameters', table_par, {title: 'Regression line parameters'}, {displayModeBar: false});
 
 var table_val = [{
   type: 'table',
@@ -165,8 +172,9 @@ var table_val = [{
   },
     xaxis: 'x2',
     yaxis: 'y2',
+    // domain: {x: [0.55,1], y: [0,1]}
 }]
-Plotly.newPlot('values', table_val, {title: 'Data points', margin:{l:0, r:10}}, {displayModeBar: false});
+Plotly.newPlot('values', table_val, {title: 'Data points'}, {displayModeBar: false});
 
 Number.prototype.between = function(min, max) {
   return this >= min && this <= max;
@@ -314,4 +322,15 @@ d3.select(".plotly").on('mousemove', function(d, i) {
 // });
 
 </script>
-{% endblock content %}
+
+<script src="../../static/js/tabs.js"></script>
+
+<script>
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+<script src="../../static/js/jquery.min.js"></script>
+<script src="../../static/js/browser.min.js"></script>
+<script src="../../static/js/breakpoints.min.js"></script>
+<script src="../../static/js/util.js"></script>
+<script src="../../static/js/main.js"></script>
