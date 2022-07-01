@@ -33,9 +33,20 @@
 	</div>
 
 	<div id="Demo" class="tabcontent">
-      <div id="myPlot"></div>
-      <div id="myDiv"></div>	  
-	</div>
+    <div id="myPlot"></div>
+    <div class="row">
+
+      <div class="column">
+        <div id="parameters"></div>
+      </div>
+
+      <div class="column">
+        <div id="values"></div>
+      </div>
+
+    </div>
+
+  </div>
 
 	<div id="Links" class="tabcontent">
 	  <p>Code links and references</p>
@@ -146,10 +157,9 @@ var table_par = [{
   },
     xaxis: 'x',
     yaxis: 'y',
-    domain: {x: [0,0.45], y: [0,1]},
-    layout: {title: 'Linear regression parameters'}
+    // domain: {x: [0,0.45], y: [0,1]},
 }]
-
+Plotly.newPlot('parameters', table_par, {title: 'Regression line parameters'});
 
 var table_val = [{
   type: 'table',
@@ -168,30 +178,15 @@ var table_val = [{
   },
     xaxis: 'x2',
     yaxis: 'y2',
-    domain: {x: [0.55,1], y: [0,1]}
+    // domain: {x: [0.55,1], y: [0,1]}
 }]
+Plotly.newPlot('values', table_val, {title: 'Data points'});
 
-var data = [table_val[0],table_par[0]]
-var layout = {
-  grid: {rows: 1, columns: 2, pattern: 'independent'},
-};
-var table_titles = {
-  annotations: [
-    {text: "Regression line parameters",
-          showarrow: false,
-          x: 0,
-          xref: "x domain",
-          y: 1.1,
-          yref: "y domain"},
-    {text: "Data points",
-          showarrow: false,
-          x: 0.55,
-          xref: "x2 domain",
-          y: 1.1,
-          yref: "y2 domain"}
-  ]
-}
-Plotly.newPlot('myDiv', data, table_titles);
+// var data = [table_val[0],table_par[0]]
+// var layout = {
+//   grid: {rows: 1, columns: 2, pattern: 'independent'},
+// };
+// Plotly.newPlot('myDiv', data);
 
 Number.prototype.between = function(min, max) {
   return this >= min && this <= max;
@@ -260,7 +255,7 @@ d3.select(".plotly").on('click', function(d, i) {
   var update_3 = {
     cells: {values: [[Number(y_inter.toFixed(2))], [Number(slope.toFixed(2))], [Number(R2.toFixed(2))]]}
   }
-  Plotly.restyle('myDiv', update_3, [1]);
+  Plotly.restyle('parameters', update_3);
 
   var xvals_r = xvals.map(function(num){
     return Number(num.toFixed(2))
@@ -272,7 +267,7 @@ d3.select(".plotly").on('click', function(d, i) {
   
 
   // add values to a table (BETTER use extendTraces)
-  Plotly.restyle('myDiv', {cells: {values: [xvals_r, yvals_r]}}, [0]);
+  Plotly.restyle('values', {cells: {values: [xvals_r, yvals_r]}});
 
   }
 
