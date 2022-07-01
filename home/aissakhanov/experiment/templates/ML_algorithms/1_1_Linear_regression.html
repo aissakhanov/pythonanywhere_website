@@ -13,27 +13,19 @@
 
 <body>
 	<div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'Brief')" id="defaultOpen">Brief</button>
-        <button class="tablinks" onclick="openCity(event, 'Mathematics')">Mathematics</button>
-        <button class="tablinks" onclick="openCity(event, 'From_scratch')">Develop from scratch</button>
+        <button class="tablinks" onclick="openCity(event, 'About')" id="defaultOpen">About</button>
+        <!-- <button class="tablinks" onclick="openCity(event, 'Mathematics')">Mathematics</button> -->
+        <!-- <button class="tablinks" onclick="openCity(event, 'From_scratch')">Develop from scratch</button> -->
         <button class="tablinks" onclick="openCity(event, 'Demo')">Interactive demo</button>
         <button class="tablinks" onclick="openCity(event, 'Links')">Additional links</button>
 	</div>
 
-	<div id="Brief" class="tabcontent">
+	<div id="About" class="tabcontent">
          <p>High-level info: what is it, history, whete it is used, etc.</p>
 	</div>
 
-	<div id="Mathematics" class="tabcontent">
-	  <p>Required assumptions</p>
-	</div>
-
-  <div id="From_scratch" class="tabcontent">
-	  <p>put video here</p>
-	</div>
-
 	<div id="Demo" class="tabcontent">
-    <div id="myPlot"></div>
+    <div id="myPlot" style="width: 100%"></div>
     <div class="row">
 
       <div class="column">
@@ -45,7 +37,6 @@
       </div>
 
     </div>
-
   </div>
 
 	<div id="Links" class="tabcontent">
@@ -67,16 +58,16 @@ var height_1 = window.innerHeight
 // PLOT 1 
 // initial points
 var traces = [{
-  x: [1, 2],
-  y: [10, 15],
+  x: [-1, 2],
+  y: [-5, 3],
   mode: 'markers',
   type: 'scatter',
   name: 'initial data',
 }];
 // regression line
 traces.push({
-    x : [1,2],
-    y : [10, 15],
+    x : traces[0].x,
+    y : traces[0].y,
     mode: 'lines',
     name: 'Regression line'
 });
@@ -103,10 +94,13 @@ traces.push({
 
 
 var layout = {
-  xaxis: {title: "Feature"},
-  yaxis: {title: "Target"},
+  xaxis: {title: "Feature", autorange: true},
+  yaxis: {title: "Target", autorange: true},
   title: "Linear Regression example",
   hovermode: "closest",
+  autosize: true,
+  paper_bgcolor: "#cfe2f3",
+  // plot_bgcolor: "#cfe2f3"
 };
 
 var config = {
@@ -159,7 +153,7 @@ var table_par = [{
     yaxis: 'y',
     // domain: {x: [0,0.45], y: [0,1]},
 }]
-Plotly.newPlot('parameters', table_par, {title: 'Regression line parameters'});
+Plotly.newPlot('parameters', table_par, {title: 'Regression line parameters'}, {displayModeBar: false});
 
 var table_val = [{
   type: 'table',
@@ -180,13 +174,7 @@ var table_val = [{
     yaxis: 'y2',
     // domain: {x: [0.55,1], y: [0,1]}
 }]
-Plotly.newPlot('values', table_val, {title: 'Data points'});
-
-// var data = [table_val[0],table_par[0]]
-// var layout = {
-//   grid: {rows: 1, columns: 2, pattern: 'independent'},
-// };
-// Plotly.newPlot('myDiv', data);
+Plotly.newPlot('values', table_val, {title: 'Data points'}, {displayModeBar: false});
 
 Number.prototype.between = function(min, max) {
   return this >= min && this <= max;
