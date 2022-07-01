@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% block content %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <!-- Main -->
 <div id="main">
 	<div class="inner">
@@ -7,7 +8,9 @@
 			<h1>ML algorithms</h1>
 			<p>Below you can find categories of algorithms</p>
 		</header>
-		<section class="tiles">
+		<div id="myDiv" style = "width: 100%; height: 100%"></div>
+		
+		<!-- <section class="tiles">
 			<article class="style1">
 				<span class="image">
 					<img src="../../static/images/pic01.jpg" alt="" />
@@ -31,7 +34,32 @@
 					</div>
 				</a>
 			</article>
-		</section>
+		</section> -->
 	</div>
 </div>
+<script>
+	var data = [{
+			type: "sunburst",
+			labels: ["ML algorithms", 
+			"Supervised learning", "Unsupervised learning[COMING SOON]", "Reinforcement learning[COMING SOON]",
+			'<a href="{% url "lin_reg" %}">Linear regression</a>', "Logistic Regression[COMING SOON]"],
+			parents: ["", 
+			"ML algorithms", "ML algorithms", "ML algorithms",
+			"Supervised learning", "Supervised learning"],
+			values:  [0,5,10,10, 2.5, 2.5],
+			outsidetextfont: {size: 20, color: "#377eb8"},
+			leaf: {opacity: 0.4},
+			marker: {line: {width: 2}},
+		  }];
+		  
+		  var layout = {
+			// margin: {l: 0, r: 0, b: 0, t: 0},
+			// width: 500,
+			// height: 500,
+			hovermode: false
+		  };
+		  
+		  
+		  Plotly.newPlot('myDiv', data, layout);
+</script>
 {% endblock content %}
