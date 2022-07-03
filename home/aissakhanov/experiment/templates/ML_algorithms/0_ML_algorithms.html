@@ -8,58 +8,82 @@
 			<h1>ML algorithms</h1>
 			<p>Below you can find categories of algorithms</p>
 		</header>
-		<div id="myDiv" style = "width: 100%; height: 100%"></div>
-		
-		<!-- <section class="tiles">
-			<article class="style1">
-				<span class="image">
-					<img src="../../static/images/pic01.jpg" alt="" />
-				</span>
-				<a href="{% url 'lin_reg' %}">
-					<h2>Linear Regression</h2>
-					<div class="content">
-						<p>Description</p>
-					</div>
-				</a>
-
-			</article>
-			<article class="style2">
-				<span class="image">
-					<img src="../../static/images/pic02.jpg" alt="" />
-				</span>
-				<a href="#">
-					<h2>[COMING SOON] Logistic Regression</h2>
-					<div class="content">
-						<p>Description</p>
-					</div>
-				</a>
-			</article>
-		</section> -->
+		<div class="row">
+			<div class="column_3">
+				<div id="myDiv_1" style="width: 100%"></div>
+			</div>
+			<div class="column_3">
+				<div id="myDiv_2"></div>
+			</div>
+			<div class="column_3">
+				<div id="myDiv_3"></div>
+			</div>
+		</div>		
 	</div>
 </div>
 <script>
-	var data = [{
-			type: "sunburst",
-			labels: ["ML algorithms", 
-			"Supervised learning", "Unsupervised learning[COMING SOON]", "Reinforcement learning[COMING SOON]",
-			'<a href="{% url "lin_reg" %}">Linear regression</a>', "Logistic Regression[COMING SOON]"],
-			parents: ["", 
-			"ML algorithms", "ML algorithms", "ML algorithms",
-			"Supervised learning", "Supervised learning"],
-			values:  [0,5,10,10, 2.5, 2.5],
-			outsidetextfont: {size: 20, color: "#377eb8"},
-			leaf: {opacity: 0.4},
-			marker: {line: {width: 2}},
-		  }];
-		  
-		  var layout = {
-			// margin: {l: 0, r: 0, b: 0, t: 0},
-			// width: 500,
-			// height: 500,
-			hovermode: false
-		  };
-		  
-		  
-		  Plotly.newPlot('myDiv', data, layout);
+	var config = {responsive: true, displayModeBar: false, staticPlot: true}
+	var SL = [{
+    x: [1, 1, 1, 1, 1],
+    y: ['5', '4', '3', '2', '1'],
+    type: 'bar',
+	orientation: 'h',
+	text: ["<a href=\"{% url 'lin_reg' %}\">Linear Regression</a>", 'Logistic Regression [COMING SOON]',
+	'Support Vector Machines(SVM) [COMING SOON]','K-nearest neighbor(KNN) [COMING SOON]',
+	'Random forest [COMING SOON]'],
+	hoverinfo: 'none',
+	textposition: 'auto',
+	insidetextanchor: "middle",
+	marker: {color: 'orange'},
+	textfont: {size: 15}
+  }];
+  	var SL_layout={
+		title: 'Supervised learning',
+		xaxis: {visible: false},
+		yaxis: {visible: false},
+		margin: {l:5, r:5},
+		autosize: true
+		
+	}
+  	Plotly.newPlot('myDiv_1', SL, SL_layout, config);
+	
+	var UsL = [{
+		x: [1],
+    y: ['1'],
+    type: 'bar',
+	orientation: 'h',
+	text: ['COMING SOON'],
+	hoverinfo: 'none',
+	textposition: 'auto',
+	marker: {color: 'green'},
+	insidetextanchor: "middle",
+	textfont: {size: 16}
+	}];
+	var UsL_layout = {
+		title: 'Unsupervised learning',
+		xaxis: {visible: false},
+		yaxis: {visible: false},
+		margin: {l:5, r:5}
+	};
+	Plotly.newPlot('myDiv_2', UsL, UsL_layout, config);
+	var RL = [{
+		x: [1],
+    y: ['1'],
+    type: 'bar',
+	orientation: 'h',
+	text: ['COMING SOON'],
+	hoverinfo: 'none',
+	textposition: 'auto',
+	marker: {color: 'red'},
+	insidetextanchor: "middle",
+	textfont: {size: 16}
+  }];
+  var RL_layout = {
+		title: 'Reinforcement learning',
+		xaxis: {visible: false},
+		yaxis: {visible: false},
+		margin: {l:5, r:5}
+	}
+	Plotly.newPlot('myDiv_3', RL, RL_layout, config);
 </script>
 {% endblock content %}

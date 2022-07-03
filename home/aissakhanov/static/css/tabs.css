@@ -37,3 +37,9 @@
 .column{
   display: inline-block;
 }
+
+.column_3{
+  float: left;
+  width: 33.33%;
+  /* display: inline-block; */
+}
