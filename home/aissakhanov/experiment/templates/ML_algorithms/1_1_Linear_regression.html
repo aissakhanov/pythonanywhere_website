@@ -6,14 +6,14 @@
 	<div class="inner">
 		<header>
 			<h1>Linear Regression</h1>
-      <p>This page consists of 2 main parts: Demo(with 2 tables below) and explanataory notes. Let's go through each of them:
-        <li><b>Demo:</b> y-axis is our target, and x-axis is a feature, which possibly explains our target values.
-          A graph contains initial data(blue), regression line(orange), average of target values(red) and y-intercept(violet).
-        <b>YOU CAN</b> add points by clicking on the graph, which results in green dots(your data). Consequently, regression line will
-        automatically adjust for new data. And obviously, y-intercept and average will adjust too. In addition, there are 
+      <p>This page consists of 2 main parts: Demo(with 2 tables below) and explanatory notes. Let's go through each of them:
+        <li><b>Demo:</b> A graph, where y-axis is our target and x-axis is a feature which possibly explains our target values.
+          A graph contains initial data(blue), regression line(orange), average point of feature and target values(red) and y-intercept(violet).
+        <b>YOU CAN</b> add points by clicking on the graph, which results in green dots(your data). Consequently, regression line, 
+        y-intercept and average will automatically adjust for new data. In addition, there are 
         control buttons on top right corner, which will help you to reset axes and download a graph as an image.
         </li>
-        <li><b>Tables below the graph</b>: 1st table contains regression line parameters: intercept, slope, and R2 percentage.
+        <li><b>Tables below the graph</b>: 1st table contains regression line parameters: y-intercept, slope, and R-squared.
         2nd table contains initial and your data points. Both of these tables dynamically change as you add more data.</li>
         <li><b>Explanatory notes:</b> It contains main highlights/insights for this demo, additionally some Python code and math formulas
           written in LaTex. Hence, this section is done in Google Colab notebook, for convenience.
@@ -39,7 +39,7 @@
           </div>
         </div>
       <!-- </div> -->
-      <script src="https://gist.github.com/aissakhanov/ae3f6ea51175a0a0b00330d75a609681.js"></script>
+      <script src="https://gist.github.com/aissakhanov/b05f93c1e2ad5872bae99bcc8b72717c.js"></script>
   </div>
 </div>
 
@@ -170,7 +170,7 @@ var table_val = [{
     xaxis: 'x2',
     yaxis: 'y2',
 }]
-Plotly.newPlot('values', table_val, {title: 'Data points', margin:{l:0, r:20}}, {displayModeBar: false});
+Plotly.newPlot('values', table_val, {title: 'Data points', margin:{l:0, r:20, b:0}}, {displayModeBar: false});
 
 Number.prototype.between = function(min, max) {
   return this >= min && this <= max;
