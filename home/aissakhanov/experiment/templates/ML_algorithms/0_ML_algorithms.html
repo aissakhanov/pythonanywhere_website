@@ -6,104 +6,45 @@
 	<div class="inner">
 		<header>
 			<h1>ML algorithms</h1>
-			<p>Below you can find categories of algorithms</p>
+			<p>Algorithms are divided into 3 categories. All of them have brief explanations and 
+				interactive demos. Please click on the algorithm you want to explore.</p>
 		</header>
 		<title>ML algorithms</title>
-		<div class="row">
-			<div class="column_3">
-				<div id="myDiv_1" style="width: 100%"></div>
+		<table>
+			<tr>
 				<center>
-				<ul>
-					<li><a href="{% url 'lin_reg' %}" target="_blank">Linear Regression</a></li>
-					<li>Logistic Regression [COMING SOON]</li>
-					<li>Support vector machines(SVM) [COMING SOON]</li>
-					<li>K-nearest neighbor(KNN) [COMING SOON]</li>
-					<li>Random forest [COMING SOON]</li>
-				</ul>
+				<th><h2>Supervised learning</h2></th>
+				<th><h2>Unsupervised learning</h2></th>
+				<th><h2>Reinforcement learning</h2></th>
 				</center>
-			</div>
-			<div class="column_3">
-				<div id="myDiv_2"></div>
-				<center>
-				<ul>
-					<li>COMING SOON</li>
-				</ul>
-				</center>
-			</div>
-			<div class="column_3">
-				<div id="myDiv_3"></div>
-				<center>
-				<ul>
-					<li>COMING SOON</li>
-				</ul>
-				</center>
-			</div>
-		</div>		
+			</tr>
+			<tr>
+				<td><a href="{% url 'lin_reg' %}" target="_blank">Linear Regression</a></td>
+				<td>[COMING SOON]</td>
+				<td>[COMING SOON]</td>
+			</tr>
+			<tr>
+				<td>Logistic regression [COMING SOON]</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Support vector machines(SVM) [COMING SOON]</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>K-nearest neighbor(KNN) [COMING SOON]</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Random forest [COMING SOON]</td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<div id="parameters"></div>
 	</div>
 </div>
-<script>
-	var config = {responsive: true, displayModeBar: false, staticPlot: true}
-	var SL = [{
-    x: [1, 1, 1, 1, 1],
-    y: ['5', '4', '3', '2', '1'],
-    type: 'bar',
-	orientation: 'h',
-	text: ["<a href=\"{% url 'lin_reg' %}\">Linear Regression</a>", 'Logistic Regression [COMING SOON]',
-	'Support Vector Machines(SVM) [COMING SOON]','K-nearest neighbor(KNN) [COMING SOON]',
-	'Random forest [COMING SOON]'],
-	hoverinfo: 'none',
-	textposition: 'auto',
-	insidetextanchor: "middle",
-	marker: {color: 'orange'},
-	textfont: {size: 15}
-  }];
-  	var SL_layout={
-		title: 'Supervised learning',
-		xaxis: {visible: false},
-		yaxis: {visible: false},
-		margin: {l:5, r:5},
-		autosize: true
-		
-	}
-  	Plotly.newPlot('myDiv_1', SL, SL_layout, config);
-	
-	var UsL = [{
-		x: [1],
-    y: ['1'],
-    type: 'bar',
-	orientation: 'h',
-	text: ['COMING SOON'],
-	hoverinfo: 'none',
-	textposition: 'auto',
-	marker: {color: 'green'},
-	insidetextanchor: "middle",
-	textfont: {size: 16}
-	}];
-	var UsL_layout = {
-		title: 'Unsupervised learning',
-		xaxis: {visible: false},
-		yaxis: {visible: false},
-		margin: {l:5, r:5}
-	};
-	Plotly.newPlot('myDiv_2', UsL, UsL_layout, config);
-	var RL = [{
-		x: [1],
-    y: ['1'],
-    type: 'bar',
-	orientation: 'h',
-	text: ['COMING SOON'],
-	hoverinfo: 'none',
-	textposition: 'auto',
-	marker: {color: 'red'},
-	insidetextanchor: "middle",
-	textfont: {size: 16}
-  }];
-  var RL_layout = {
-		title: 'Reinforcement learning',
-		xaxis: {visible: false},
-		yaxis: {visible: false},
-		margin: {l:5, r:5}
-	}
-	Plotly.newPlot('myDiv_3', RL, RL_layout, config);
-</script>
 {% endblock content %}
