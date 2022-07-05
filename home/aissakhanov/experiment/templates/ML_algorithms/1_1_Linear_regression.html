@@ -50,7 +50,7 @@ var traces = [{
   y: [-5, 3],
   mode: 'markers',
   type: 'scatter',
-  name: 'initial data',
+  name: 'data',
   visible: true
 }];
 // regression line
@@ -193,7 +193,6 @@ Number.prototype.between = function(min, max) {
   return this >= min && this <= max;
 };
 
-
 d3.select(".plotly").on('click', function(d, i) {
   var e = d3.event;
   var bgrect = document.getElementsByClassName('gridlayer')[0].getBoundingClientRect();
@@ -201,7 +200,8 @@ d3.select(".plotly").on('click', function(d, i) {
   var y = ((e.y - bgrect['y']) / (bgrect['height'])) * (myPlot.layout.yaxis.range[0] - myPlot.layout.yaxis.range[1]) + myPlot.layout.yaxis.range[1];
   if (x.between(myPlot.layout.xaxis.range[0], myPlot.layout.xaxis.range[1]) &&
     y.between(myPlot.layout.yaxis.range[0], myPlot.layout.yaxis.range[1])) {
-    Plotly.extendTraces(myPlot, {
+    if (myPlot.data[4].visible === false){
+      Plotly.extendTraces(myPlot, {
       x: [
         [x]
       ],
@@ -209,6 +209,7 @@ d3.select(".plotly").on('click', function(d, i) {
         [y]
       ]
     }, [0]);
+  }
 
   // add points to table
 
@@ -271,7 +272,19 @@ d3.select(".plotly").on('click', function(d, i) {
   Plotly.restyle('values', {cells: {values: [xvals_r, yvals_r]}});
 
   }
+});
 
+d3.select(".plotly").on('mousemove', function(d, i) {
+  var e = d3.event;
+  var bgrect = document.getElementsByClassName('gridlayer')[0].getBoundingClientRect();
+  var x = ((e.x - bgrect['x']) / (bgrect['width'])) * (myPlot.layout.xaxis.range[1] - myPlot.layout.xaxis.range[0]) + myPlot.layout.xaxis.range[0];
+  var y = ((e.y - bgrect['y']) / (bgrect['height'])) * (myPlot.layout.yaxis.range[0] - myPlot.layout.yaxis.range[1]) + myPlot.layout.yaxis.range[1];
+  if (x.between(myPlot.layout.xaxis.range[0], myPlot.layout.xaxis.range[1]) &&
+    y.between(myPlot.layout.yaxis.range[0], myPlot.layout.yaxis.range[1])) {
+    // console.log("Location X:"+x+" Y"+y)
+   document.getElementById("xvalue").value = x;
+   document.getElementById("yvalue").value = y;
+  }
 });
 
 function sum(arr) {
@@ -291,18 +304,7 @@ function dotMultiply(arr1, arr2){
     return temp_arr;
 }
 
-d3.select(".plotly").on('mousemove', function(d, i) {
-  var e = d3.event;
-  var bgrect = document.getElementsByClassName('gridlayer')[0].getBoundingClientRect();
-  var x = ((e.x - bgrect['x']) / (bgrect['width'])) * (myPlot.layout.xaxis.range[1] - myPlot.layout.xaxis.range[0]) + myPlot.layout.xaxis.range[0];
-  var y = ((e.y - bgrect['y']) / (bgrect['height'])) * (myPlot.layout.yaxis.range[0] - myPlot.layout.yaxis.range[1]) + myPlot.layout.yaxis.range[1];
-  if (x.between(myPlot.layout.xaxis.range[0], myPlot.layout.xaxis.range[1]) &&
-    y.between(myPlot.layout.yaxis.range[0], myPlot.layout.yaxis.range[1])) {
-    // console.log("Location X:"+x+" Y"+y)
-   document.getElementById("xvalue").value = x;
-   document.getElementById("yvalue").value = y;
-  }
-});
+
 
 // PURE PLOTLY JS solution, but coordinates are slightly off
 // Plotly.plot('myPlot', [{
