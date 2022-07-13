@@ -1,22 +1,31 @@
 {% extends 'main.html' %}
 {% block content %}
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+	td, th{
+		border-left: 1px solid;
+		border-right: 1px solid;
+	}
+	td{
+		text-align: center;
+	}
+	th{
+		background-color: #FE74D2;
+	}
+</style>
 <!-- Main -->
 <div id="main">
 	<div class="inner">
 		<header>
 			<h1>ML algorithms</h1>
-			<p>Algorithms are divided into 3 categories. All of them have brief explanations and 
-				interactive demos. Please click on the algorithm you want to explore.</p>
+			<p><b>Algorithms are divided into 3 categories. All of them have brief explanations and 
+				interactive demos. Please click on the algorithm you want to explore.</b></p>
 		</header>
 		<title>ML algorithms</title>
 		<table>
 			<tr>
-				<center>
 				<th><h2>Supervised learning</h2></th>
 				<th><h2>Unsupervised learning</h2></th>
 				<th><h2>Reinforcement learning</h2></th>
-				</center>
 			</tr>
 			<tr>
 				<td><a href="{% url 'lin_reg' %}" target="_blank">Linear Regression</a></td>
@@ -44,7 +53,6 @@
 				<td></td>
 			</tr>
 		</table>
-		<div id="parameters"></div>
 	</div>
 </div>
 {% endblock content %}
