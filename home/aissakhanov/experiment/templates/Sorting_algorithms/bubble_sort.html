@@ -1,0 +1,74 @@
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="javascript:randomizeArray();">Randomize array</button>
+    <div id="graph"></div>
+    <button onclick="javascript:startAnimation();">Sort</button>
+
+</body>
+
+<script>
+    var l = 100;
+    var ids_1 = [];
+    var x = [];
+    var y = [];
+    var colors = [];
+    randomizeArray();
+    function randomizeArray(){
+        ids_1 = [];
+        x = [];
+        y = [];
+        colors = [];
+        for (let k=0; k<l; k++){
+            ids_1.push(String(k+1));
+            x.push(k+1);
+            y.push(Math.floor(Math.random() * 100));
+            colors.push('green');
+        }
+        var data = [{
+            x: x,
+            y: y,
+            type: 'bar',
+            ids: ids_1,
+            marker:{color: colors},
+        }];
+
+        var layout = {
+            title: 'Bubble sort algorithm',
+            xaxis:{
+                // tickmode: 'array',
+                // tickvals: y,
+                visible: false,
+            },
+        }
+        Plotly.newPlot('graph', data, layout)    
+    }
+        
+    function startAnimation() {
+        for(let i=0; i<y.length; i++){
+            j = i+1;
+            if (y[i] > y[j]) {
+                var temp = ids_1[i];
+                ids_1[i] = ids_1[j];
+                ids_1[j] = temp;
+                
+                var temp_y = y[i];
+                y[i] = y[j];
+                y[j] = temp_y;
+            }
+            Plotly.animate('graph', {
+                data: [{ids: ids_1}],
+                // transition:[{duration: 1000000}]
+            });   
+        }
+    }
+</script>
