@@ -1,0 +1,114 @@
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- <button onclick="javascript:randomVal();">randomize</button> -->
+    <button onclick="javascript:startAnimation();">SORT</button>
+    <div id="myDiv"></div>
+</body>
+<script>
+    var n = 5;
+    var x = [];
+    var y = [];
+    var colors = [];
+    var ids = []
+    function randomVal(){
+        y = [];
+        for(let k=0; k<n; k++){
+            y.push(Math.floor(Math.random() * 100));
+        }
+        var update = {
+            x:[x],
+            y:[y],
+        }
+        Plotly.restyle('myDiv', update);
+        // sorter();
+    }
+
+    function initializeGraph(){
+        for(let k=0; k<n; k++){   
+            x.push(k+1);
+            y.push(Math.floor(Math.random() * 100));
+            colors.push('red');
+            ids.push(String(k+1));
+        }
+        var data=[{
+            x: x,
+            y: y,
+            type: 'bar',
+            marker:{color: colors},
+            ids: ids,
+        }];
+        var layout = {
+            title:'Bubble sort algorithm',
+        };
+        Plotly.newPlot('myDiv', data, layout);
+        // sorter()
+    }
+    initializeGraph();
+
+    var y_cloned = [...y];
+    var frames = [];
+    
+    function sorter(){
+        for (let i=0; i<n-1; i++){
+            for (let j=0; j < n-i-1; j++){
+                if (y_cloned[j] > y_cloned[j+1]) {
+                    var temp_x = x[j];
+                    x[j] = x[j+1];
+                    x[j+1] = temp_x;
+                    
+                    var temp_y = y[j];
+                    y[j] = y[j+1];
+                    y[j+1] = temp_y;
+
+                    var temp_id = ids[j];
+                    ids[j] = ids[j+1];
+                    ids[j+1] = temp_id;
+                }
+                var temp_frame = {
+                    data: [{ x:[...x]}],
+                    traces: [0]
+                }
+                console.log(ids);
+                console.log(temp_frame)
+                frames.push(temp_frame)
+            }
+        }
+        console.log(y);
+        console.log(y_cloned)
+        console.log(frames)
+    }
+    sorter();
+    // Plotly.addFrames('myDiv',frames)
+    
+    function startAnimation(){
+        Plotly.animate('myDiv',frames,{
+            mode:'afterall'
+        })
+    }
+  
+//   function randomize() {
+//     Plotly.animate('myDiv', {
+//       data: [{y: [2, 3, 1, 7,4,6, 5]}],
+//       traces: [0],
+//       layout: {}
+//     }, {
+//       transition: {
+//         duration: 500,
+//         easing: 'cubic-in-out'
+//       },
+//       frame: {
+//         duration: 50000
+//       }
+//     })
+//   }
+</script>
