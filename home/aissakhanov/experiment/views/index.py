@@ -28,3 +28,7 @@ def root_finding(request):
 def bis_method(request):
 	context = {}
 	return render(request, 'Numerical_methods/1_1_1_Bisection_method.html', context)
+
+def sort_alg(request):
+	context = {}
+	return render(request, 'Sorting_algorithms/v2_bubble_sort.html', context)

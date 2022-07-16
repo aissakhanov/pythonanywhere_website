@@ -1,27 +1,27 @@
-<head>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <style>
-        button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 1;
-        }
-    </style>
-</head>
-<body>
-    <!-- <button onclick="javascript:randomVal();" data-inline="true">randomize</button> -->
-    <button onclick="javascript:randomize();" data-inline="true">SORT</button>
-    <div id="myDiv"></div>
-</body>
+{% extends 'main.html' %}
+{% block content %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<div id="main">
+	<div class="inner">
+		<header>
+			<h1>Sorting algorithms</h1>
+            <h4>Some introduction about this topic------------------------</h4>
+        </header>
+        <title>Sorting algorithms</title>
+        <!-- <button onclick="javascript:randomVal();">randomize</button> -->
+        <button onclick="javascript:sort();">SORT</button>
+        <div id="myDiv"></div>
+        <h4>Detailed explanation with codes-------------------------------</h4>
+  </div>
+</div>
 <script>
-    var n = 10;
+    var n = 100;
     var x = [];
     var y = [];
     var colors = [];
     var ids = [];
     var frame_durations = [];
-    var duration_value = 1000;
+    var duration_value = 500;
     function randomVal(){
         y = [];
         for(let k=0; k<n; k++){
@@ -98,18 +98,13 @@
             frame_durations.push({duration: duration_value})
         }
     }
+
     sorter();
-    function randomize() {
+    function sort() {
     Plotly.animate('myDiv', frames, {
         frame: frame_durations,
-    //   transition: {
-    //     duration: 500,
-    //     easing: 'cubic-in-out'
-    //   },
-    //   frame: {
-    //     duration: 50000
-    //   },
-      mode: 'afterall'
+        mode: 'afterall'
     })
   }
 </script>
+{% endblock content %}

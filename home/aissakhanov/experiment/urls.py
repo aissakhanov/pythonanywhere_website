@@ -27,4 +27,5 @@ urlpatterns = [
     path('linear_regression/',views.lin_reg, name='lin_reg'),
     path('root_finding/', views.root_finding, name='root_finding'),
     path('bis_method/', views.bis_method, name='bis_method'),
+    path('sorting_algorithms/', views.sort_alg, name='sort_alg'),
 ]
