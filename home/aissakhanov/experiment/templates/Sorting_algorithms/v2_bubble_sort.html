@@ -19,7 +19,9 @@
     var x = [];
     var y = [];
     var colors = [];
-    var ids = []
+    var ids = [];
+    var frame_durations = [];
+    var duration_value = 1000;
     function randomVal(){
         y = [];
         for(let k=0; k<n; k++){
@@ -37,7 +39,7 @@
             x.push(k+1);
             y.push(Math.floor(Math.random() * 100));
             colors.push('red');
-            ids.push(String(k+1))
+            ids.push(String(k+1));
         }
         var data=[{
             x: x,
@@ -70,6 +72,7 @@
                     data:[{y:[...y], ids:[...ids], marker: {color: [...colors]}}]
                 }
                 frames.push(temp_frame_1);
+                frame_durations.push({duration: duration_value})
                 if (y[j] > y[j+1]) {
                     var temp_id = ids[j];
                     ids[j] = ids[j+1];
@@ -81,7 +84,8 @@
                 var temp_frame_2 = {
                     data: [{ marker:{color: [...colors]},y:[...y], ids:[...ids], }],
                 }
-                frames.push(temp_frame_2)
+                frames.push(temp_frame_2);
+                frame_durations.push({duration: duration_value})
             }
             if (i==n-2){
                 colors_cloned[0] = 'green';
@@ -91,11 +95,13 @@
                     data:[{y:[...y], ids:[...ids], marker: {color: [...colors_cloned]}}]
                 }
             frames.push(temp_frame_3);
+            frame_durations.push({duration: duration_value})
         }
     }
     sorter();
     function randomize() {
     Plotly.animate('myDiv', frames, {
+        frame: frame_durations,
     //   transition: {
     //     duration: 500,
     //     easing: 'cubic-in-out'
