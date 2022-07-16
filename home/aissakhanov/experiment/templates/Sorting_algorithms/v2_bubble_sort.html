@@ -10,12 +10,12 @@
     </style>
 </head>
 <body>
-    <!-- <button onclick="javascript:randomVal();">randomize</button> -->
-    <button onclick="javascript:startAnimation();">SORT</button>
+    <!-- <button onclick="javascript:randomVal();" data-inline="true">randomize</button> -->
+    <button onclick="javascript:randomize();" data-inline="true">SORT</button>
     <div id="myDiv"></div>
 </body>
 <script>
-    var n = 5;
+    var n = 10;
     var x = [];
     var y = [];
     var colors = [];
@@ -30,7 +30,6 @@
             y:[y],
         }
         Plotly.restyle('myDiv', update);
-        // sorter();
     }
 
     function initializeGraph(){
@@ -38,7 +37,7 @@
             x.push(k+1);
             y.push(Math.floor(Math.random() * 100));
             colors.push('red');
-            ids.push(String(k+1));
+            ids.push(String(k+1))
         }
         var data=[{
             x: x,
@@ -49,66 +48,62 @@
         }];
         var layout = {
             title:'Bubble sort algorithm',
+            xaxis:{visible: false}
         };
-        Plotly.newPlot('myDiv', data, layout);
-        // sorter()
+        var config = {
+            responsive: true,
+            displayModeBar: false
+        }
+        Plotly.newPlot('myDiv', data, layout, config);
     }
     initializeGraph();
 
-    var y_cloned = [...y];
     var frames = [];
-    
+    var colors_cloned = [...colors];
     function sorter(){
         for (let i=0; i<n-1; i++){
             for (let j=0; j < n-i-1; j++){
-                if (y_cloned[j] > y_cloned[j+1]) {
-                    var temp_x = x[j];
-                    x[j] = x[j+1];
-                    x[j+1] = temp_x;
-                    
+                colors = [...colors_cloned]
+                colors[j] = 'yellow';
+                colors[j+1] = 'yellow';
+                var temp_frame_1 = {
+                    data:[{y:[...y], ids:[...ids], marker: {color: [...colors]}}]
+                }
+                frames.push(temp_frame_1);
+                if (y[j] > y[j+1]) {
+                    var temp_id = ids[j];
+                    ids[j] = ids[j+1];
+                    ids[j+1] = temp_id;                    
                     var temp_y = y[j];
                     y[j] = y[j+1];
                     y[j+1] = temp_y;
-
-                    var temp_id = ids[j];
-                    ids[j] = ids[j+1];
-                    ids[j+1] = temp_id;
                 }
-                var temp_frame = {
-                    data: [{ x:[...x]}],
-                    traces: [0]
+                var temp_frame_2 = {
+                    data: [{ marker:{color: [...colors]},y:[...y], ids:[...ids], }],
                 }
-                console.log(ids);
-                console.log(temp_frame)
-                frames.push(temp_frame)
+                frames.push(temp_frame_2)
             }
+            if (i==n-2){
+                colors_cloned[0] = 'green';
+            }
+            colors_cloned[n-i-1] = 'green';
+            var temp_frame_3 = {
+                    data:[{y:[...y], ids:[...ids], marker: {color: [...colors_cloned]}}]
+                }
+            frames.push(temp_frame_3);
         }
-        console.log(y);
-        console.log(y_cloned)
-        console.log(frames)
     }
     sorter();
-    // Plotly.addFrames('myDiv',frames)
-    
-    function startAnimation(){
-        Plotly.animate('myDiv',frames,{
-            mode:'afterall'
-        })
-    }
-  
-//   function randomize() {
-//     Plotly.animate('myDiv', {
-//       data: [{y: [2, 3, 1, 7,4,6, 5]}],
-//       traces: [0],
-//       layout: {}
-//     }, {
-//       transition: {
-//         duration: 500,
-//         easing: 'cubic-in-out'
-//       },
-//       frame: {
-//         duration: 50000
-//       }
-//     })
-//   }
+    function randomize() {
+    Plotly.animate('myDiv', frames, {
+    //   transition: {
+    //     duration: 500,
+    //     easing: 'cubic-in-out'
+    //   },
+    //   frame: {
+    //     duration: 50000
+    //   },
+      mode: 'afterall'
+    })
+  }
 </script>
