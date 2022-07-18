@@ -8,39 +8,94 @@
             <h4>Some introduction about this topic------------------------</h4>
         </header>
         <title>Bubble sort</title>
-        <!-- <button onclick="javascript:randomVal();">randomize</button> -->
-        <button onclick="javascript:sort();">SORT</button>
+        Number of values (Any integer N, 101>N>2): <input type="number" id="nVal" max="100" min="3" step="1">
+        <br>   
+        <br>
+        Speed of animations (Any real number x, 10>=x>0): <input type="number" id="speed" max="10" min="0.00001">
+        <br>
+        <br>
+        <button id="randBtn" onclick="javascript:randomVal();">randomize</button>   
+        <button id="sortBtn" onclick="javascript:sort();">Start sorting</button>
+        <button id="finishSortBtn" onclick="javascript:finishSort()">Finish sorting</button>
         <div id="myDiv"></div>
         <h4>Detailed explanation with codes-------------------------------</h4>
   </div>
 </div>
 <script>
+    var sort_button = document.getElementById("sortBtn");
+    var rand_button = document.getElementById("randBtn");
+    var finish_button = document.getElementById("finishSortBtn");
+    sort_button.disabled = true;
+    finish_button.disabled=true;
+    var n_max = 100;
+    var n_min = 3;
     var n = 100;
     var x = [];
     var y = [];
+    var y_final = [];
     var colors = [];
+    var colors_orig = [];
+    var colors_final = [];
     var ids = [];
-    var frame_durations = [];
-    var duration_value = 500;
+    var ids_orig = [];
+    var duration_value_default = 500;
     function randomVal(){
+        if (document.getElementById("nVal").value.length == 0){
+            n = n_max;
+        } else{
+            n = Math.min(document.getElementById("nVal").value, n_max);
+            n = Math.max(n, n_min);
+        }
+        if (document.getElementById("speed").value.length == 0){
+            duration_value = duration_value_default;
+        } else{
+            duration_value = Math.min((10.00001 - document.getElementById("speed").value)*100, 1000);
+            n = Math.max(n, 5);
+        }
+        x = [];
         y = [];
-        for(let k=0; k<n; k++){
-            y.push(Math.floor(Math.random() * 100));
+        colors_orig = [];
+        colors_final = [];
+        ids_orig = [];
+        for(let k=0; k<n; k++){   
+            x.push(k+1);
+            y.push(k+1);
+            colors_orig.push('blue');
+            colors_final.push('green');
+            ids_orig.push(String(k+1));
+        }
+        ids = [...ids_orig];
+        colors = [...colors_orig];
+        y_final = [...y];
+        for (let i=n-1; i>0; i--){
+            const j = Math.floor(Math.random()*(i+1));
+            const temp = y[i];
+            y[i] = y[j];
+            y[j] = temp;
         }
         var update = {
             x:[x],
             y:[y],
+            marker:{color:colors},
+            ids:ids,
         }
         Plotly.restyle('myDiv', update);
+        console.log(y);
+        sorter();
+        sort_button.disabled = false;
     }
 
     function initializeGraph(){
         for(let k=0; k<n; k++){   
             x.push(k+1);
-            y.push(Math.floor(Math.random() * 100));
-            colors.push('red');
-            ids.push(String(k+1));
+            y.push(k+1);
+            colors_orig.push('blue');
+            colors_final.push('green');
+            ids_orig.push(String(k+1));
         }
+        colors = [...colors_orig];
+        ids = [...ids_orig];
+        y_final = [...y];
         var data=[{
             x: x,
             y: y,
@@ -60,14 +115,33 @@
     }
     initializeGraph();
 
+    function finishSort(){
+        Plotly.animate('myDiv', [null], {
+            mode: 'immediate',
+            transition: {duration: 0}
+        });
+        var update = {
+            x:[x],
+            y:[y_final],
+            marker:{color: colors_final}
+        }
+        Plotly.restyle('myDiv', update)
+        sort_button.disabled = true;
+        rand_button.disabled = false;
+        finish_button.disabled = true;
+    }
+
     var frames = [];
-    var colors_cloned = [...colors];
+    var frame_durations = [];
     function sorter(){
+        frames = [];
+        frame_durations = [];
+        colors_cloned = [...colors_orig]
         for (let i=0; i<n-1; i++){
             for (let j=0; j < n-i-1; j++){
                 colors = [...colors_cloned]
-                colors[j] = 'yellow';
-                colors[j+1] = 'yellow';
+                colors[j] = 'orange';
+                colors[j+1] = 'orange';
                 var temp_frame_1 = {
                     data:[{y:[...y], ids:[...ids], marker: {color: [...colors]}}]
                 }
@@ -97,14 +171,17 @@
             frames.push(temp_frame_3);
             frame_durations.push({duration: duration_value})
         }
+    console.log(frames)
     }
 
-    sorter();
     function sort() {
-    Plotly.animate('myDiv', frames, {
-        frame: frame_durations,
-        mode: 'afterall'
-    })
-  }
+        sort_button.disabled = true;
+        rand_button.disabled = true;
+        finish_button.disabled = false;
+        Plotly.animate('myDiv', frames, {
+            frame: frame_durations,
+            mode: 'afterall'
+        })
+    }
 </script>
 {% endblock content %}
