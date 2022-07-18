@@ -31,4 +31,8 @@ def bis_method(request):
 
 def sort_alg(request):
 	context = {}
+	return render(request, 'Sorting_algorithms/0_Sorting_algorithms.html', context)
+
+def bubble_sort(request):
+	context = {}
 	return render(request, 'Sorting_algorithms/v2_bubble_sort.html', context)

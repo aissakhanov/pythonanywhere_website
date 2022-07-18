@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+	td, th{
+		border-left: 1px solid;
+		border-right: 1px solid;
+	}
+	td{
+		text-align: center;
+	}
+	th{
+		background-color: #FE74D2;
+	}
+</style>
+<!-- Main -->
+<div id="main">
+	<div class="inner">
+		<header>
+			<h1>Array sorting algorithms</h1>
+			<p><b>Array sorting algorithms are listed below. Provided table is inspired by <a href="https://www.bigocheatsheet.com/">bigocheatsheet</a>. Each of them
+			have interactive demos and explanations</b></p>
+		</header>
+		<title>Array sorting algorithms</title>
+		<table>
+			<tr>
+				<td style="background-color: #FE74D2"><h2>Algorithm</h2></td>
+				<td colspan="3" style="background-color: #FE74D2"><h2>Time complexity</h2></td>
+				<td style="background-color: #FE74D2"><h2>Space complexity</h2></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td style="background-color: #90fe74"><h4>Best</h4></td>
+				<td style="background-color: #f9f640"><h4>Average</h4></td>
+				<td style="background-color: #f86267"><h4>Worst</h4></td>
+				<td><h4>Worst</h4></td>
+			</tr>
+			<tr>
+				<td><a href="{% url 'bubble_sort' %}" target="_blank">Bubble sort</a></td>
+				<td>n</td>
+				<td>n^2</td>
+				<td>n^2</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>Quick sort [COMING SOON]</td>
+				<td>nlog(n)</td>
+				<td>nlog(n)</td>
+				<td>n^2</td>
+				<td>log(n)</td>
+			</tr>
+		</table>
+	</div>
+</div>
+{% endblock content %}
