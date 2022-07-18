@@ -35,4 +35,4 @@ def sort_alg(request):
 
 def bubble_sort(request):
 	context = {}
-	return render(request, 'Sorting_algorithms/v2_bubble_sort.html', context)
+	return render(request, 'Sorting_algorithms/bubble_sort.html', context)
