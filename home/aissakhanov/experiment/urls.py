@@ -29,4 +29,5 @@ urlpatterns = [
     path('bis_method/', views.bis_method, name='bis_method'),
     path('sorting_algorithms/', views.sort_alg, name='sort_algo'),
     path('bubble_sort/', views.bubble_sort, name='bubble_sort'),
+    path('selection_sort/', views.selection_sort, name='selection_sort')
 ]

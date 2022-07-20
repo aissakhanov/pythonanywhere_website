@@ -1,0 +1,202 @@
+{% extends 'main.html' %}
+{% block content %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<div id="main">
+	<div class="inner">
+		<header>
+			<h1>Selection sort</h1>
+            <h4>Some introduction about this topic------------------------</h4>
+        </header>
+        <title>Selection sort</title>
+        Number of values (Any integer N, 101>N>2): <input type="number" id="nVal" max="100" min="3" step="1">
+        <br>   
+        <br>
+        Speed of animations (Any real number x, 10>=x>0): <input type="number" id="speed" max="10" min="0.00001">
+        <br>
+        <br>
+        <button id="randBtn" onclick="javascript:randomVal();">randomize</button>   
+        <button id="sortBtn" onclick="javascript:sort();">Start sorting</button>
+        <button id="finishSortBtn" onclick="javascript:finishSort()">Finish sorting</button>
+        <div id="myDiv"></div>
+        <h4>Detailed explanation with codes-------------------------------</h4>
+  </div>
+</div>
+<script>
+    var sort_button = document.getElementById("sortBtn");
+    var rand_button = document.getElementById("randBtn");
+    var finish_button = document.getElementById("finishSortBtn");
+    sort_button.disabled = true;
+    finish_button.disabled=true;
+    var n_max = 100;
+    var n_min = 3;
+    var n = 100;
+    var x = [];
+    var y = [];
+    var y_final = [];
+    var colors = [];
+    var colors_orig = [];
+    var colors_final = [];
+    var ids = [];
+    var ids_orig = [];
+    var duration_value_default = 500;
+    var duration_value = 0;
+    function randomVal(){
+        if (document.getElementById("nVal").value.length == 0){
+            n = n_max;
+        } else{
+            n = Math.min(document.getElementById("nVal").value, n_max);
+            n = Math.max(n, n_min);
+        }
+        if (document.getElementById("speed").value.length == 0){
+            duration_value = duration_value_default;
+        } else{
+            duration_value = Math.min((10.00001 - document.getElementById("speed").value)*100, 1000);
+            duration_value = Math.max(duration_value, 10);
+        }
+        x = [];
+        y = [];
+        colors_orig = [];
+        colors_final = [];
+        ids_orig = [];
+        for(let k=0; k<n; k++){   
+            x.push(k+1);
+            y.push(k+1);
+            colors_orig.push('blue');
+            colors_final.push('green');
+            ids_orig.push(String(k+1));
+        }
+        ids = [...ids_orig];
+        colors = [...colors_orig];
+        y_final = [...y];
+        for (let i=n-1; i>0; i--){
+            const j = Math.floor(Math.random()*(i+1));
+            const temp = y[i];
+            y[i] = y[j];
+            y[j] = temp;
+        }
+        var update = {
+            x:[x],
+            y:[y],
+            marker:{color:colors},
+            ids:ids,
+        }
+        Plotly.restyle('myDiv', update);
+        console.log(y);
+        sorter();
+        sort_button.disabled = false;
+    }
+
+    function initializeGraph(){
+        for(let k=0; k<n; k++){   
+            x.push(k+1);
+            y.push(k+1);
+            colors_orig.push('blue');
+            colors_final.push('green');
+            ids_orig.push(String(k+1));
+        }
+        colors = [...colors_orig];
+        ids = [...ids_orig];
+        y_final = [...y];
+        var data=[{
+            x: x,
+            y: y,
+            type: 'bar',
+            marker:{color: colors},
+            ids: ids,
+        }];
+        var layout = {
+            title:'Bubble sort algorithm',
+            xaxis:{visible: false}
+        };
+        var config = {
+            responsive: true,
+            displayModeBar: false
+        }
+        Plotly.newPlot('myDiv', data, layout, config);
+    }
+    initializeGraph();
+
+    function finishSort(){
+        Plotly.animate('myDiv', [null], {
+            mode: 'immediate',
+            transition: {duration: 0}
+        });
+        var update = {
+            x:[x],
+            y:[y_final],
+            marker:{color: colors_final}
+        }
+        Plotly.restyle('myDiv', update)
+        sort_button.disabled = true;
+        rand_button.disabled = false;
+        finish_button.disabled = true;
+    }
+
+    var frames = [];
+    var frame_durations = [];
+    function sorter(){
+        var i, j, temp_min_ind;
+        frames = [];
+        frame_durations = [];
+        colors_cloned = [...colors_orig]
+        for (i=0; i<n-1; i++){
+            colors_cloned[i] = 'red';
+            temp_min_ind = i;
+            var temp_frame_0 = {
+                data:[{y:[...y], ids:[...ids], marker: {color: [...colors_cloned]}}]
+            }
+            frames.push(temp_frame_0);
+            frame_durations.push({duration: duration_value});
+            for (j=i+1; j < n; j++){
+                colors = [...colors_cloned]
+                colors[j] = 'orange';
+                var temp_frame_1 = {
+                    data:[{y:[...y], ids:[...ids], marker: {color: [...colors]}}]
+                }
+                frames.push(temp_frame_1);
+                frame_durations.push({duration: duration_value})
+                if (y[j] <= y[temp_min_ind]) {
+                    colors_cloned[temp_min_ind] = 'blue';
+                    colors_cloned[j] = 'red';
+                    colors[j] = 'red';
+                    colors_cloned[temp_min]
+                    var temp_frame_2 = {
+                    data: [{ marker:{color: [...colors]},y:[...y], ids:[...ids], }],
+                        }
+                    frames.push(temp_frame_2);
+                    frame_durations.push({duration: duration_value})
+                }
+                if (y[j] <= y[temp_min_ind]) {
+                    temp_min_ind = j;
+                }
+            }
+            var temp_y = y[i];
+            y[i] = y[temp_min_ind];
+            y[temp_min_ind] = temp_y;
+            var temp_id = ids[i];
+            ids[i] = ids[temp_min_ind];
+            ids[temp_min_ind] = temp_id;
+
+            if (i==n-1){
+                colors_cloned[i+1] = 'green';
+            }
+            colors_cloned[i] = 'green';
+            var temp_frame_3 = {
+                    data:[{y:[...y], ids:[...ids], marker: {color: [...colors_cloned]}}]
+                }
+            frames.push(temp_frame_3);
+            frame_durations.push({duration: duration_value})
+        }
+    }
+
+    function sort() {
+        sort_button.disabled = true;
+        rand_button.disabled = true;
+        finish_button.disabled = false;
+        Plotly.animate('myDiv', frames, {
+            frame: frame_durations,
+            mode: 'afterall'
+        })
+    }
+</script>
+{% endblock content %}
