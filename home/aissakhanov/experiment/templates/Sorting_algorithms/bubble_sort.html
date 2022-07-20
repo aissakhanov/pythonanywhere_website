@@ -1,5 +1,14 @@
 {% extends 'main.html' %}
 {% block content %}
+<style>
+    td, th{
+		border-left: 1px solid;
+		border-right: 1px solid;
+	}
+    table {
+        width: 50%
+    }
+</style>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <div id="main">
 	<div class="inner">
@@ -7,6 +16,7 @@
 			<h1>Bubble sort</h1>
         </header>
         <title>Bubble sort</title>
+        <!-- <center> -->
         <table>
             <tr>
                 <th>Number of values (Min: 3, Max: 100)</th>
@@ -17,9 +27,11 @@
                 <td><input type="number" id="speed" max="10" min="0.00001"></td>
             </tr>
         </table>
+        
         <button id="randBtn" onclick="javascript:randomVal();">randomize</button>   
         <button id="sortBtn" onclick="javascript:sort();">Start sorting</button>
         <button id="finishSortBtn" onclick="javascript:finishSort()">Finish sorting</button>
+    <!-- </center> -->
         <div id="myDiv"></div>
   </div>
 </div>
