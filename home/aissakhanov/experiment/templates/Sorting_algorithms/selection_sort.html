@@ -5,7 +5,6 @@
 	<div class="inner">
 		<header>
 			<h1>Selection sort</h1>
-            <h4>Some introduction about this topic------------------------</h4>
         </header>
         <title>Selection sort</title>
         Number of values (Any integer N, 101>N>2): <input type="number" id="nVal" max="100" min="3" step="1">
@@ -18,7 +17,6 @@
         <button id="sortBtn" onclick="javascript:sort();">Start sorting</button>
         <button id="finishSortBtn" onclick="javascript:finishSort()">Finish sorting</button>
         <div id="myDiv"></div>
-        <h4>Detailed explanation with codes-------------------------------</h4>
   </div>
 </div>
 <script>
@@ -81,9 +79,9 @@
             ids:ids,
         }
         Plotly.restyle('myDiv', update);
-        console.log(y);
+        console.log(y)
         sorter();
-        sort_button.disabled = false;
+        sort_button.disabled = false;        
     }
 
     function initializeGraph(){
@@ -105,7 +103,7 @@
             ids: ids,
         }];
         var layout = {
-            title:'Bubble sort algorithm',
+            title:'Selection sort algorithm',
             xaxis:{visible: false}
         };
         var config = {
@@ -135,41 +133,43 @@
     var frames = [];
     var frame_durations = [];
     function sorter(){
-        var i, j, temp_min_ind;
         frames = [];
         frame_durations = [];
-        colors_cloned = [...colors_orig]
-        for (i=0; i<n-1; i++){
+        var colors_cloned = [...colors_orig]
+        for (let i=0; i<n-1; i++){
+            var temp_min_ind = i;
             colors_cloned[i] = 'red';
-            temp_min_ind = i;
             var temp_frame_0 = {
-                data:[{y:[...y], ids:[...ids], marker: {color: [...colors_cloned]}}]
+                data:[{y:[...y], ids:[...ids], marker:{color: [...colors_cloned]}}]
             }
             frames.push(temp_frame_0);
             frame_durations.push({duration: duration_value});
-            for (j=i+1; j < n; j++){
-                colors = [...colors_cloned]
-                colors[j] = 'orange';
+            for (let j=i+1; j < n; j++){
+                colors_cloned[j] = 'orange';
                 var temp_frame_1 = {
-                    data:[{y:[...y], ids:[...ids], marker: {color: [...colors]}}]
+                    data:[{y:[...y], ids:[...ids], marker:{color: [...colors_cloned]}}]
                 }
                 frames.push(temp_frame_1);
-                frame_durations.push({duration: duration_value})
-                if (y[j] <= y[temp_min_ind]) {
-                    colors_cloned[temp_min_ind] = 'blue';
+                frame_durations.push({duration: duration_value});
+                if (y[j] < y[temp_min_ind]) {
                     colors_cloned[j] = 'red';
-                    colors[j] = 'red';
-                    colors_cloned[temp_min]
+                    colors_cloned[temp_min_ind] = 'blue';
                     var temp_frame_2 = {
-                    data: [{ marker:{color: [...colors]},y:[...y], ids:[...ids], }],
-                        }
+                        data:[{y:[...y], ids:[...ids], marker:{color: [...colors_cloned]}}]
+                    }
                     frames.push(temp_frame_2);
-                    frame_durations.push({duration: duration_value})
-                }
-                if (y[j] <= y[temp_min_ind]) {
+                    frame_durations.push({duration: duration_value});
                     temp_min_ind = j;
+                } else{
+                    colors_cloned[j] = 'blue';
+                    var temp_frame_2 = {
+                        data:[{y:[...y], ids:[...ids], marker:{color: [...colors_cloned]}}]
+                    }
+                    frames.push(temp_frame_2);
+                    frame_durations.push({duration: duration_value});
                 }
             }
+            colors_cloned[temp_min_ind] = 'blue';
             var temp_y = y[i];
             y[i] = y[temp_min_ind];
             y[temp_min_ind] = temp_y;
@@ -177,16 +177,24 @@
             ids[i] = ids[temp_min_ind];
             ids[temp_min_ind] = temp_id;
 
-            if (i==n-1){
-                colors_cloned[i+1] = 'green';
-            }
-            colors_cloned[i] = 'green';
             var temp_frame_3 = {
-                    data:[{y:[...y], ids:[...ids], marker: {color: [...colors_cloned]}}]
+                    data:[{y:[...y], ids:[...ids], marker:{color: [...colors_cloned]}}]
                 }
             frames.push(temp_frame_3);
-            frame_durations.push({duration: duration_value})
+            frame_durations.push({duration: duration_value});
+            colors_cloned[i] = 'green';
+            var temp_frame_4 = {
+                    data:[{y:[...y], ids:[...ids], marker:{color: [...colors_cloned]}}]
+                }
+            frames.push(temp_frame_4);
+            frame_durations.push({duration: duration_value});
         }
+        colors_cloned[n-1] = 'green';
+        var temp_frame_5 = {
+                    data:[{y:[...y], ids:[...ids], marker:{color: [...colors_cloned]}}]
+                }
+        frames.push(temp_frame_5);
+        frame_durations.push({duration: duration_value});
     }
 
     function sort() {
