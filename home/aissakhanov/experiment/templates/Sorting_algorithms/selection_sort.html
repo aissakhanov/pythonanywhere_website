@@ -7,12 +7,16 @@
 			<h1>Selection sort</h1>
         </header>
         <title>Selection sort</title>
-        Number of values (Any integer N, 101>N>2): <input type="number" id="nVal" max="100" min="3" step="1">
-        <br>   
-        <br>
-        Speed of animations (Any real number x, 10>=x>0): <input type="number" id="speed" max="10" min="0.00001">
-        <br>
-        <br>
+        <table>
+            <tr>
+                <th>Number of values (Min: 3, Max: 100)</th>
+                <th>Speed of animations (Min:>0, Max:10)</th>
+            </tr>
+            <tr>
+                <td><input "type="number" id="nVal" max="100" min="3" step="1"></td>
+                <td><input type="number" id="speed" max="10" min="0.00001"></td>
+            </tr>
+        </table>
         <button id="randBtn" onclick="javascript:randomVal();">randomize</button>   
         <button id="sortBtn" onclick="javascript:sort();">Start sorting</button>
         <button id="finishSortBtn" onclick="javascript:finishSort()">Finish sorting</button>
@@ -27,7 +31,7 @@
     finish_button.disabled=true;
     var n_max = 100;
     var n_min = 3;
-    var n = 100;
+    var n = 30;
     var x = [];
     var y = [];
     var y_final = [];
@@ -40,7 +44,7 @@
     var duration_value = 0;
     function randomVal(){
         if (document.getElementById("nVal").value.length == 0){
-            n = n_max;
+            n = n;
         } else{
             n = Math.min(document.getElementById("nVal").value, n_max);
             n = Math.max(n, n_min);
@@ -104,7 +108,8 @@
         }];
         var layout = {
             title:'Selection sort algorithm',
-            xaxis:{visible: false}
+            xaxis:{visible: false},
+            paper_bgcolor: "#cfe2f3",
         };
         var config = {
             responsive: true,
@@ -162,11 +167,11 @@
                     temp_min_ind = j;
                 } else{
                     colors_cloned[j] = 'blue';
-                    var temp_frame_2 = {
-                        data:[{y:[...y], ids:[...ids], marker:{color: [...colors_cloned]}}]
-                    }
-                    frames.push(temp_frame_2);
-                    frame_durations.push({duration: duration_value});
+                    // var temp_frame_2 = {
+                    //     data:[{y:[...y], ids:[...ids], marker:{color: [...colors_cloned]}}]
+                    // }
+                    // frames.push(temp_frame_2);
+                    // frame_durations.push({duration: duration_value});
                 }
             }
             colors_cloned[temp_min_ind] = 'blue';

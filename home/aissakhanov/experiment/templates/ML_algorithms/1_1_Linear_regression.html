@@ -6,17 +6,17 @@
 	<div class="inner">
 		<header>
 			<h1>Linear Regression</h1>
-      <p>This page consists of 2 main parts: Demo(with 2 tables below) and explanatory notes. Let's go through each of them:
-        <li><b>Demo:</b> A graph, where y-axis is our target and x-axis is a feature which possibly explains our target values.
-          A graph contains initial data(blue), regression line(orange), average point of feature and target values(red) and y-intercept(violet).
-        <b>YOU CAN</b> add points by clicking on the graph, which results in green dots(your data). Consequently, regression line, 
+      <p>
+        <li><b>Demo [created using <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a> and <a href="https://d3js.org/" target="_blank">D3.js</a>]:</b> A graph, where y-axis is our target and x-axis is a feature which possibly explains our target values.
+          A graph contains initial data(blue), regression line(orange), average of [feature, target](red) and y-intercept(violet).
+        <b>YOU CAN</b> add points by clicking on the graph. Consequently, regression line, 
         y-intercept and average will automatically adjust for new data. In addition, there are 
         control buttons on top right corner, which will help you to reset axes and download a graph as an image.
         </li>
         <li><b>Tables below the graph</b>: 1st table contains regression line parameters: y-intercept, slope, and R-squared.
-        2nd table contains initial and your data points. Both of these tables dynamically change as you add more data.</li>
-        <li><b>Explanatory notes:</b> It contains main highlights/insights for this demo, additionally some Python code and math formulas
-          written in LaTex. Hence, this section is done in Google Colab notebook, for convenience.
+        2nd table contains data points. Both of these tables dynamically change as you add more data.</li>
+        <li><b>Explanatory notes:</b> It contains some preliminary knowledge about this algorithm, some highlights for this demo, Python implementation using scikit-learn 
+          and additional resources worth reading.
         </li>
       </p>
     </header>
@@ -84,9 +84,9 @@ traces.push({
   visible: true
 });
 
-var slope_0 = (traces[0].y[1]-traces[0].y[0])/(traces[0].x[1]-traces[0].x[0]);
-var y_inter_0 = traces[0].y[1] - slope_0*traces[0].x[1];
-var values = [[y_inter_0], [slope_0], [100]];
+var slope_0 = Number(((traces[0].y[1]-traces[0].y[0])/(traces[0].x[1]-traces[0].x[0])).toFixed(2));
+var y_inter_0 = Number((traces[0].y[1] - slope_0*traces[0].x[1]).toFixed(2));
+var values = [[y_inter_0], [slope_0], [Number(100)]];
 
 // y-intercept
 traces.push(
@@ -103,14 +103,14 @@ traces.push(
   }
 )
 
-traces.push({
-  x: [1, 2],
-  y: [3, 4],
-  mode: 'markers',
-  type: 'scatter',
-  name: 'food_data',
-  visible: false
-});
+// traces.push({
+//   x: [1, 2],
+//   y: [3, 4],
+//   mode: 'markers',
+//   type: 'scatter',
+//   name: 'food_data',
+//   visible: false
+// });
 
 var layout = {
   xaxis: {title: "Feature", autorange: true},
@@ -119,19 +119,19 @@ var layout = {
   hovermode: "closest",
   autosize: true,
   paper_bgcolor: "#cfe2f3",
-  updatemenus: [{
-    y:1,
-    yanchor: 'top',
-    buttons: [{
-      method: 'restyle',
-      args: ['visible', [true, true, true, true, false]],
-      label: 'playground'
-    },{
-      method: 'restyle',
-      args: ['visible', [false, false, false, false, true]],
-      label: 'food data'
-    }]
-  }],
+  // updatemenus: [{
+  //   y:1,
+  //   yanchor: 'top',
+  //   buttons: [{
+  //     method: 'restyle',
+  //     args: ['visible', [true, true, true, true, false]],
+  //     label: 'playground'
+  //   },{
+  //     method: 'restyle',
+  //     args: ['visible', [false, false, false, false, true]],
+  //     label: 'food data'
+  //   }]
+  // }],
   
 };
 
@@ -201,7 +201,7 @@ d3.select(".plotly").on('click', function(d, i) {
   var y = ((e.y - bgrect['y']) / (bgrect['height'])) * (myPlot.layout.yaxis.range[0] - myPlot.layout.yaxis.range[1]) + myPlot.layout.yaxis.range[1];
   if (x.between(myPlot.layout.xaxis.range[0], myPlot.layout.xaxis.range[1]) &&
     y.between(myPlot.layout.yaxis.range[0], myPlot.layout.yaxis.range[1])) {
-    if (myPlot.data[4].visible === false){
+    // if (myPlot.data[4].visible === false){
       Plotly.extendTraces(myPlot, {
       x: [
         [x]
@@ -210,7 +210,7 @@ d3.select(".plotly").on('click', function(d, i) {
         [y]
       ]
     }, [0]);
-  }
+  // }
 
   // add points to table
 
